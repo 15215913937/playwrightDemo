@@ -1,0 +1,5 @@
+- name: 查询标签借口
+  request:
+    method: get
+    url: https://api.weixin.qq.com/cgi-bin/tags/get
+  validate: None
