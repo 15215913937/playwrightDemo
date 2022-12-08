@@ -1,0 +1,8 @@
+case_success_login:
+  username: 15215913937
+  password: 1
+  expect_string: 15215913937
+case_error_login:
+  username: admin
+  password: admin
+  expect_string: admin

@@ -1,0 +1,22 @@
+CorrectUserAccount:
+  username: '15215913937'
+  password: '1'
+WrongUserAccount:
+# 错误密码
+  - username: '15215913937'
+    password: '123'
+# 错误密码-空格
+  - username: '15215913937'
+    password: ' '
+# 错误密码-空
+  - username: '15215913937'
+    password: ''
+# 未注册账号
+  - username: '123456'
+    password: '1'
+# 错误账号-空格
+  - username: ' '
+    password: '1'
+# 错误账号-空
+  - username: ''
+    password: '1'
