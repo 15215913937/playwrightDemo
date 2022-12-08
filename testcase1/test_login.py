@@ -1,90 +1,143 @@
 # coding = utf-8
 # Author: Shenbq
 # Date: 2022/8/11 13:22
-'''
-cnblog的登录测试，分下面几种情况：
-(1)用户名、密码正确
-(2)用户名正确、密码不正确
-(3)用户名正确、密码为空
-(4)用户名错误、密码正确
-(5)用户名为空、密码正确（还有用户名和密码均为空时与此情况是一样的，这里就不单独测试了）
-'''
+
 import time
 import unittest
 from selenium import webdriver
 from time import sleep
 
+from selenium.webdriver.chrome.options import Options
+
+import opYml
+
 
 class LoginCase(unittest.TestCase):
+    # 测试数据
+    correctUserAccount = opYml.getUserYml()['CorrectUserAccount']
+    wrongUserAccount = opYml.getUserYml()['WrongUserAccount']
+    # 截图地址
+    successScreenCapPath = opYml.getCommonYml()['logAddress']['success']
+    errorScreenCapPath = opYml.getCommonYml()['logAddress']['error']
+    USERNAME_LOCATOR = "name"
+    PASSWORD_LOCATOR = "password"
+    LOGIN_BUTTON_LOCATOR = '//*[@id="popContainer"]/div/div[1]/div/div[2]/form/div[5]/div/div/span/button'
+    SEARCH_KEY_LOCATOR = 'name'
+    BASE_URL = "http://bed.test.cnzxa.cn"
+
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        print("智能床垫后台登录模块测试开始----")
 
     def setUp(self):
-        # 指定浏览器
-        self.driver = webdriver.Chrome()
+        print("当前用例开始执行")
+        options = Options()
         # 窗口最大化
-        self.driver.maximize_window()
+        # self.driver.maximize_window()
+        # 最大化启动
+        options.add_argument('--start-maximized')
+        # 禁用inforbar 当前使用无效，原因尚不明确
+        options.add_argument('--disable-infobars')
+        # 指定浏览器
+        self.driver = webdriver.Chrome(options=options)
+        # 指定打开页面地址
+        self.driver.get(self.BASE_URL)
+
+
+        self.driver.implicitly_wait(5)
 
     # 定义登录方法
     def login(self, username, password):
-        # 指定打开页面地址
-        self.driver.get('http://bed.test.cnzxa.cn/#/login')
-        self.driver.find_element_by_xpath(
-            "/html/body/div[1]/div/div[1]/div/div[2]/form/div[2]/div/div/span/span/input").send_keys(username)
-        self.driver.find_element_by_xpath(
-            "/html/body/div[1]/div/div[1]/div/div[2]/form/div[3]/div/div/span/span/input").send_keys(password)
-        self.driver.find_element_by_xpath(
-            "/html/body/div[1]/div/div[1]/div/div[2]/form/div[5]/div/div/span/button").click()
+        driver = self.driver
+        driver.find_element_by_id(self.USERNAME_LOCATOR).clear()
+        driver.find_element_by_id(self.PASSWORD_LOCATOR).clear()
+        sleep(1)
+        driver.find_element_by_id(self.USERNAME_LOCATOR).send_keys(username)
+        driver.find_element_by_id(self.PASSWORD_LOCATOR).send_keys(password)
+        driver.find_element_by_xpath(self.LOGIN_BUTTON_LOCATOR).click()
 
     def test_login_success(self):
-        '''用户名、密码正确'''
-        self.login('admin', 'admin')  # 正确用户名和密码
-        sleep(3)
-        username = self.driver.find_element_by_class_name('name')
-        self.assertTrue('admin' in username.text)  # 用assertTrue(x)方法来断言  bool(x) is True 登录成功后用户昵称在lnk_current_user里\
         # 获取格式化的当前时间
         ran_str = time.strftime('%Y%m%d%H%M%S', time.localtime(time.time()))
-        self.driver.get_screenshot_as_file("d:/testplace/success_login_" + ran_str + ".png")  # 截图  可自定义截图后的保存位置和图片命名
+        '''用户名、密码正确'''
+        self.login(self.correctUserAccount['username'], self.correctUserAccount['password'])
+        username = self.driver.find_element_by_class_name(self.SEARCH_KEY_LOCATOR)
+        # 截图  可自定义截图后的保存位置和图片命名
+        self.driver.get_screenshot_as_file(self.successScreenCapPath + "\\success_login_" + ran_str + ".png")
+        self.assertTrue(self.correctUserAccount['username'] in username.text)
 
     def test_login_pwd_error(self):
-        '''用户名正确，密码不正确'''
-        self.login('admin', 'aa')
+        '''密码不正确'''
+        self.login(self.wrongUserAccount[0]['username'], self.wrongUserAccount[0]['password'])
         sleep(2)
-        alert_info = self.driver.switch_to.alert()
-        print(alert_info.text)
+        logInfo = '错误密码'
+        self.driver.get_screenshot_as_file(self.errorScreenCapPath + "\\error_login_" + logInfo + ".png")
+        alert_info = self.driver.find_element_by_xpath('/html/body/div[2]/span/div/div/div/span')
+        self.assertIn('用户信息有误', alert_info.text)
 
-    # def test_login_pwd_error(self):
-    #     '''用户名正确、密码不正确'''
-    #     self.login('kemi_xxx', 'kemi')  #正确用户名，错误密码
+    # def test_login_pwd_space(self):
+    #     '''密码不正确-空格'''
+    #     self.driver.find_element_by_id("name").send_keys(self.wrongUserAccount[1]['username'])
+    #     self.driver.find_element_by_id("password").send_keys(Keys.SPACE)
+    #     self.driver.find_element_by_xpath(
+    #         '//*[@id="popContainer"]/div/div[1]/div/div[2]/form/div[5]/div/div/span/button').click()
     #     sleep(2)
-    #     error_message = self.driver.find_element_by_id('tip_btn').text
-    #     self.assertIn('用户名或密码错误', error_message)  #用assertIn(a,b)方法来断言 a in b  '用户名或密码错误'在error_message里
-    #     self.driver.get_screenshot_as_file("D:\cnblogtest\\login_pwd_error.jpg")
+    #     logInfo = '错误密码_空格'
+    #     self.driver.get_screenshot_as_file(self.errorScreenCapPath + "\\error_login_" + logInfo + ".png")
+    #     alert_info = self.driver.find_element_by_xpath(
+    #         '//*[@id="popContainer"]/div/div[1]/div/div[2]/form/div[3]/div/div/div')
+    #     self.assertIn('输入密码', alert_info.text)
     #
     # def test_login_pwd_null(self):
-    #     '''用户名正确、密码为空'''
-    #     self.login('kemi_xxx', '')  #密码为空
-    #     error_message = self.driver.find_element_by_id('tip_input2').text
-    #     self.assertEqual(error_message,'请输入密码')  #用assertEqual(a,b)方法来断言  a == b  请输入密码等于error_message
-    #     self.driver.get_screenshot_as_file("D:\cnblogtest\\login_pwd_null.jpg")
-    #
-    # def test_login_user_error(self):
-    #     '''用户名错误、密码正确'''
-    #     self.login('kemixing', 'kemi_xxx')  #密码正确，用户名错误
+    #     '''密码不正确-空'''
+    #     self.login(self.wrongUserAccount[2]['username'], self.wrongUserAccount[2]['password'])
     #     sleep(2)
-    #     error_message = self.driver.find_element_by_id('tip_btn').text
-    #     self.assertIn('该用户不存在', error_message)  #用assertIn(a,b)方法来断言 a in b
-    #     self.driver.get_screenshot_as_file("D:\cnblogtest\\login_user_error.jpg")
+    #     logInfo = '错误密码_空'
+    #     self.driver.get_screenshot_as_file(self.errorScreenCapPath + "\\error_login_" + logInfo + ".png")
+    #     alert_info = self.driver.find_element_by_xpath(
+    #         '//*[@id="popContainer"]/div/div[1]/div/div[2]/form/div[3]/div/div/div')
+    #     self.assertIn('输入密码', alert_info.text)
     #
-    # def test_login_user_null(self):
-    #     '''用户名为空、密码正确'''
-    #     self.login('', 'kemi_xxx')  #用户名为空，密码正确
-    #     error_message = self.driver.find_element_by_id('tip_input1').text
-    #     self.assertEqual(error_message,'请输入登录用户名')  #用assertEqual(a,b)方法来断言  a == b
-    #     self.driver.get_screenshot_as_file("D:\cnblogtest\\login_user_null.jpg")
+    # def test_login_username_unregistered(self):
+    #     '''用户名不正确'''
+    #     self.login(self.wrongUserAccount[3]['username'], self.wrongUserAccount[3]['password'])
+    #     sleep(2)
+    #     logInfo = '错误账户_未注册'
+    #     self.driver.get_screenshot_as_file(self.errorScreenCapPath + "\\error_login_" + logInfo + ".png")
+    #     alert_info = self.driver.find_element_by_xpath('/html/body/div[2]/span/div/div/div/span')
+    #     self.assertIn('用户信息有误', alert_info.text)
+    #
+    # def test_login_username_space(self):
+    #     '''用户名不正确-空格'''
+    #     self.driver.find_element_by_id("name").send_keys(Keys.SPACE)
+    #     self.driver.find_element_by_id("password").send_keys(self.wrongUserAccount[4]['password'])
+    #     self.driver.find_element_by_xpath(
+    #         '//*[@id="popContainer"]/div/div[1]/div/div[2]/form/div[5]/div/div/span/button').click()
+    #     sleep(2)
+    #     logInfo = '错误账户_空格'
+    #     self.driver.get_screenshot_as_file(self.errorScreenCapPath + "\\error_login_" + logInfo + ".png")
+    #     alert_info = self.driver.find_element_by_xpath(
+    #         '//*[@id="popContainer"]/div/div[1]/div/div[2]/form/div[2]/div/div/div')
+    #     self.assertIn('输入账户名', alert_info.text)
+    #
+    # def test_login_username_null(self):
+    #     '''用户名不正确-空'''
+    #     self.login(self.wrongUserAccount[5]['username'], self.wrongUserAccount[5]['password'])
+    #     sleep(2)
+    #     logInfo = '错误账户_空'
+    #     self.driver.get_screenshot_as_file(self.errorScreenCapPath + "\\error_login_" + logInfo + ".png")
+    #     alert_info = self.driver.find_element_by_xpath(
+    #         '//*[@id="popContainer"]/div/div[1]/div/div[2]/form/div[2]/div/div/div')
+    #     self.assertIn('输入账户名', alert_info.text)
 
     def tearDown(self):
-        sleep(2)
-        print('自动测试完毕！')
+        print('当前用例执行完毕！')
         self.driver.quit()
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        print("----智能床垫后台登录模块测试结束！")
 
 
 if __name__ == '__main__':

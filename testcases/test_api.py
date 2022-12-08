@@ -41,7 +41,7 @@ class TestApi:
     def test_03_get_new(self):
         url = "https://api.apiopen.top/getWangYiNews"
         data = {
-            "page": "1",
+            "pages": "1",
             "count": "5"
         }
         res = requests.get(url, data)
