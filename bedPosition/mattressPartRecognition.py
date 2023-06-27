@@ -53,5 +53,5 @@ if __name__ == '__main__':
         }
 
         c_waist = importPressure(url, hearder, params)
-        updatesql1 = "update bed_pressure set cloud_waist = %s where id = %d"%(c_waist, one[0])
-        sor.update(updatesql1,)
+        updatesql1 = "update bed_pressure set cloud_waist = %s where id = %d" % (c_waist, one[0])
+        sor.update(updatesql1, )
