@@ -1,23 +1,59 @@
-# import requests
-# import json
-#
-# url = 'http://bedapi.test.cnzxa.cn/api/test/predictPart'
-# hearder = {
-#     'Content-Type': 'application/json'
-# }
-# params = {
-#     "pressureList": [1, 1, 15, 21, 30, 10, 1, 0, 1, 3, 17, 30, 37, 18, 2, 0, 3, 22, 52, 91, 89, 61, 9, 2, 7, 17, 101,
-#                      105, 107, 96, 15, 4, 16, 25, 91, 118, 118, 91, 16, 10, 18, 24, 40, 70, 84, 55, 15, 20, 9, 9, 30,
-#                      42, 43, 26, 3, 8, 11, 34, 88, 96, 92, 72, 19, 14, 3, 30, 130, 184, 174, 117, 2, 3, 5, 89, 129, 146,
-#                      135, 116, 21, 9, 3, 52, 104, 93, 94, 90, 21, 8, 3, 3, 8, 4, 7, 11, 3, 0, 5, 12, 19, 17, 27, 21, 1,
-#                      0, 4, 6, 11, 17, 20, 7, 1, 0, 0, 8, 19, 13, 12, 10, 1, 0, 5, 37, 25, 15, 25, 22, 5, 0, 10, 33, 20,
-#                      11, 26, 23, 3, 0, 2, 4, 2, 2, 4, 3, 1, 1, 4, 6, 11, 4, 10, 4, 2, 1, 5, 10, 11, 13, 14, 8, 2, 1, 0,
-#                      0, 0, 0, 0, 0, 0, 0],
-#     "dbPosition": 1
-# }
-# r = requests.post(url=url, headers=hearder, json=params)
-# r1 = r.json()
-# print('识别腰部为:', r1['data']['wrist'][0])
-a='1'
-b='a+'+a+'1'
-print(b)
+import pandas as pd
+from pathlib import Path
+import logging
+
+logger = logging.getLogger(__name__)
+
+
+def get_input():
+    """获取输入参数"""
+    input_file = Path(input("输入Excel文件:"))
+    output_file = Path(input("输出Excel文件:"))
+    area_param = float(input("输入面积转换参数:"))
+    count_param = int(input("设置自定义面积的参数个数:"))
+
+    return input_file, output_file, area_param, count_param
+
+
+def read_data(input_file):
+    """读取Excel数据"""
+    try:
+        # df = pd.read_excel(input_file, usecols="A")  # 只读取第一列
+        df = pd.read_excel(input_file)  # 只读取第一列
+        return df
+    except Exception as e:
+        logger.exception("读取Excel失败")
+        raise e
+
+
+def process_data(df, area_param, count_param):
+    """处理数据"""
+    df["count"] = df.groupby(df.columns[0]).transform("count")
+    df["area"] = df[df.columns[0]] * area_param
+    df["area"] = df.groupby(df.columns[0])["area"].transform("sum")
+    df["id"] = range(len(df))
+    df["group"] = df["id"] // count_param
+    return df
+
+
+def write_data(df, output_file):
+    """写入Excel"""
+    try:
+        df.to_excel(output_file, index=False)
+    except Exception as e:
+        logger.exception("写入Excel失败")
+        raise e
+
+
+def main():
+    """主函数"""
+    input_file, output_file, area_param, count_param = get_input()
+    df = read_data(input_file)
+    df = process_data(df, area_param, count_param)
+    write_data(df, output_file)
+
+    print("转换完成!")
+
+
+if __name__ == '__main__':
+    main()

@@ -14,7 +14,7 @@ workbook = xlwt.Workbook(encoding='utf-8')
 # 添加sheet
 worksheet = workbook.add_sheet('new_data')
 
-# input_path = 'C:\\Users\\sqn\\Desktop\\3.xls'
+# input_path = 'C:\\Users\\sqn\\Desktop\\1.xls'
 # out_path = 'C:\\Users\\sqn\\Desktop\\2.xls'
 # P = 1
 # COUNT = 13
