@@ -31,24 +31,28 @@ sheet1 = wb.sheet_by_index(0)
 x = sheet1.nrows
 y = sheet1.ncols
 count = 0
-worksheet.write(0, 0, "值")
-worksheet.write(0, 1, "个数")
+worksheet.write(0, 0, "原始数据过滤")
+worksheet.write(0, 1, "值")
+worksheet.write(0, 2, "个数")
 original_data = []
-new_data = {}
 try:
     for i in range(x):
         for j in range(y):
-            if sheet1.cell_value(i, j) == '':
-                continue
-            count += 1
-            original_data.append(sheet1.cell_value(i, j))
-            # worksheet.write(count, 0, sheet1.cell_value(i, j))
+            if sheet1.cell_value(i, j) != '':
+                count += 1
+                original_data.append(sheet1.cell_value(i, j))
+                worksheet.write(count, 0, sheet1.cell_value(i, j))
+
     counter = Counter(original_data)
     data = [s for s in counter.keys()]
 
     for i in range(len(data)):
-        worksheet.write(i + 1, 0, data[i])
-        worksheet.write(i + 1, 1, counter.get(data[i]))
+        if "-" in data[i]:
+            worksheet.write(i + 1, 1, int(data[i].split('-')[1]))
+        else:
+            worksheet.write(i + 1, 1, int(data[i]))
+
+        worksheet.write(i + 1, 2, counter.get(data[i]))
     # 保存
     workbook.save(out_path)
     sys.stdout.write("转换结束！\n")
