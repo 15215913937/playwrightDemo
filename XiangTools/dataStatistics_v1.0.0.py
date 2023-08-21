@@ -9,15 +9,15 @@ import xlrd
 import xlwt
 from collections import Counter
 
-input_path = input("输入表文件绝对地址：")
-out_path = input("输出表文件绝对地址：")
+# input_path = input("输入表文件绝对地址：")
+# out_path = input("输出表文件绝对地址：")
 # 创建一个workbook并设置编码
 workbook = xlwt.Workbook(encoding='utf-8')
 # 添加sheet
 worksheet = workbook.add_sheet('new_data')
 
-# input_path = 'C:\\Users\\sqn\\Desktop\\1.xlsx'
-# out_path = 'C:\\Users\\sqn\\Desktop\\2.xlsx'
+input_path = 'C:\\Users\\sqn\\Desktop\\1.xlsx'
+out_path = 'C:\\Users\\sqn\\Desktop\\2.xlsx'
 
 
 def find_duplicates(arr):
