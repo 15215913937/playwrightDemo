@@ -1,0 +1,18 @@
+BASE_URL: http://bed.test.cnzxa.cn/#
+expect_login_success_to_url: /factoryData/b1ed_list
+login:
+  right_username:
+    username: admin
+    password: Admin!123
+  wrong_usernmae1:
+    username: admin1
+    password: Admin!123
+  wrong_usernmae2:
+    username: admin
+    password: Admin!1233
+  wrong_usernmae3:
+    username: ''
+    password: Admin!123
+  wrong_usernmae4:
+    username: admin
+    password: ''

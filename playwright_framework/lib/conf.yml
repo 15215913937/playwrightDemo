@@ -1,0 +1,6 @@
+logger:
+  filename: lib/log/log.log
+  filemode: w
+  encoding: utf-8
+  format: "%(asctime)s - %(levelname)s - %(message)s"
+  level: DEBUG
