@@ -1,5 +1,6 @@
 logger:
   filename: lib/log/log.log
+  #  a:append,追加；w:write,覆盖
   filemode: w
   encoding: utf-8
   format: "%(asctime)s - %(levelname)s - %(message)s"

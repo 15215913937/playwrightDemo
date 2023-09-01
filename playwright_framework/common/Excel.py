@@ -3,7 +3,7 @@
 # Date: 2023/8/31 14:24
 import os.path
 
-from common.Excels import NewExcel
+from common.Excels import NewExcel, OldExcel
 
 
 def get_reader(srcfile='') -> NewExcel.Reader:
