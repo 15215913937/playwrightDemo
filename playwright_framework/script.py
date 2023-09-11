@@ -18,6 +18,7 @@ def run(playwright: Playwright) -> None:
     page.get_by_placeholder("请输入用户名").click()
     page.get_by_placeholder("请输入用户名").click(button="right")
     page.get_by_text("智能床垫控制系统自动登录登 录").click()
+    page.close()
 
     # ---------------------
     context.close()
