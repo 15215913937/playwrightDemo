@@ -1,13 +1,31 @@
 # -*- coding: utf-8 -*-
 # Author: Shenbq
 # Date: 2023/8/11 15:44
-import requests
+from datetime import datetime
 
-url = "https://bedapi.test.cnzxa.cn/api/pro/bed?bedId=1892"
-headers1 = {
-    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZXhwIjoxNzIzMzA1NjAwLCJ1c2VybmFtZSI6ImFkbWluIn0.ybDbmf92EFv9cxOFXlWcrLIF2LZfBdT1jDqrK6vJ2oE",
-    "Content-Type": "application/json"
-}
-response = requests.get(url=url, headers=headers1)
-json = response.json()
-print(json['data']['pressureList'])
+now = datetime.now()
+
+# 指定时间
+target_time_start = datetime.now().replace(hour=9, minute=30, second=0, microsecond=0)
+target_time_end = datetime.now().replace(hour=15, minute=30, second=0, microsecond=0)
+is_ok = 1
+# print(target_time)
+if now < target_time_start:
+    print("当日交易还未开始")
+elif now > target_time_end:
+    is_ok = 0
+    print("当日交易结束")
+else:
+    print("当日交易进行中")
+
+today = datetime.today()
+week = today.weekday()
+date = today.strftime('%Y-%m-%d')
+date_str = datetime.strptime(date, '%Y-%m-%d')
+timestamp = date_str.timestamp()
+
+days = 7
+
+for i in range(days):
+    day = str(int(timestamp) - 86400 * (i + is_ok)) + '000'
+    print(str(i + is_ok) + '天前 : ' + day)
