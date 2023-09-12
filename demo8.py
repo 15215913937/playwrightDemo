@@ -1,13 +1,29 @@
 # -*- coding: utf-8 -*-
 # Author: Shenbq
 # Date: 2023/8/11 15:44
-import requests
+from datetime import datetime, timedelta
+from dateutil import parser
+import time
 
-url = "https://bedapi.test.cnzxa.cn/api/pro/bed?bedId=1892"
-headers1 = {
-    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZXhwIjoxNzIzMzA1NjAwLCJ1c2VybmFtZSI6ImFkbWluIn0.ybDbmf92EFv9cxOFXlWcrLIF2LZfBdT1jDqrK6vJ2oE",
-    "Content-Type": "application/json"
-}
-response = requests.get(url=url, headers=headers1)
-json = response.json()
-print(json['data']['pressureList'])
+
+def get_timestamp(days_before):
+    today = datetime.today()
+    # week = today.weekday()
+    # date_str = today.strftime('%Y-%m-%d')
+    day = today - timedelta(days=days_before)
+    return day.timestamp()
+
+
+days = 7
+for i in range(days):
+    print(int(get_timestamp(i + 1)) * 1000)
+    # ts = int(get_timestamp(i + 1)) * 1000
+    # print(time.strftime("%Y%m%d", time.localtime(ts)))
+# today = datetime.today()
+# week = today.weekday()
+# date_str = today.strftime('%Y-%m-%d')
+# date = parser.parse(date_str)
+# timestamp = date.timestamp()
+#
+# for i in range(7):
+#     print(str(int(timestamp) - 86400 * (i + 1)) + '000')

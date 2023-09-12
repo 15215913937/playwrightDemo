@@ -10,16 +10,16 @@ import numpy as np
 
 url = {
     'rise_fall_url': 'https://stock.xueqiu.com/v5/stock/screener/quote/list.json?page=1&size=30&order=desc&order_by=percent&exchange=CN&market=CN&type=sha',
-    'volume_url': 'https://stock.xueqiu.com/v5/stock/screener/quote/list.json?type=sha&order_by=volume&order=desc&size=50&page=1',
-    'turnover_url': 'https://stock.xueqiu.com/v5/stock/screener/quote/list.json?type=sha&order_by=amount&order=desc&size=50&page=1'
+    'volume_url': 'https://stock.xueqiu.com/v5/stock/screener/quote/list.json?type=sha&order_by=volume&order=desc&size=30&page=1',
+    'turnover_url': 'https://stock.xueqiu.com/v5/stock/screener/quote/list.json?type=sha&order_by=amount&order=desc&size=30&page=1',
+    'winners_list': 'https://stock.xueqiu.com/v5/stock/hq/longhu.json?date=' + '1693843200000'
 }
 
 session = requests.Session()
 session.headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.58'}
 session.get('https://xueqiu.com/')
-a = 1
-while a == 1:
+while True:
     r1 = session.get(url['rise_fall_url'])
     data1 = r1.json()
     s1 = data1['data']['list']
@@ -49,12 +49,17 @@ while a == 1:
 
     # print(data1)
     print('------' + datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '------')
-    print(rise_fall_list)
-    print(volume_ranking)
-    print(turnover_ranking)
+    # print(rise_fall_list)
+    # print(volume_ranking)
+    # print(turnover_ranking)
     from functools import reduce
-    # 找出交集
-    result = reduce(np.intersect1d, (rise_fall_list, volume_ranking, turnover_ranking))
-    print(result)
+
+    # 找出双榜交集
+    result_2 = np.intersect1d(rise_fall_list, volume_ranking)
+    print("====================== 上双榜 ======================")
+    print(result_2)
+    # 找出三榜交集
+    result_3 = reduce(np.intersect1d, (rise_fall_list, volume_ranking, turnover_ranking))
+    print("====================== 上三榜 ======================")
+    print(result_3)
     sleep(3)
-    a = 0

@@ -7,7 +7,6 @@ import pytest
 
 from ddt.excel_ddt import ddt
 import allure
-
 @allure.feature('#' + str(ddt.feature_idx) + '' + ddt.feature)
 class Test_Web:
     @allure.step
