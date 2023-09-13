@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="MySQL - test@mysql.test.cnzxa.cn">
-  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.32">
+  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.45">
     <root id="1">
       <DefaultCasing>exact</DefaultCasing>
       <DefaultEngine>InnoDB</DefaultEngine>
@@ -1093,138 +1093,138 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <CollationName>utf8mb4_general_ci</CollationName>
     </table>
     <column id="302" parent="296" name="id">
-      <DataType>bigint(20)|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>bigint(20)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="303" parent="296" name="pressure_data">
       <Comment>床垫压力</Comment>
-      <DataType>varchar(2000)|0s</DataType>
+      <DasType>varchar(2000)|0s</DasType>
       <DefaultExpression>&apos;&apos;</DefaultExpression>
       <Position>2</Position>
     </column>
     <column id="304" parent="296" name="flag">
       <Comment>标记</Comment>
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <DefaultExpression>&apos;&apos;</DefaultExpression>
       <Position>3</Position>
     </column>
     <column id="305" parent="296" name="env">
       <Comment>数据所属环境</Comment>
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <DefaultExpression>&apos;&apos;</DefaultExpression>
       <Position>4</Position>
     </column>
     <column id="306" parent="296" name="bed_id">
       <Comment>床垫id</Comment>
-      <DataType>bigint(20)|0s</DataType>
+      <DasType>bigint(20)|0s</DasType>
       <Position>5</Position>
     </column>
     <column id="307" parent="296" name="position">
       <Comment>实际睡姿；0：空闲，1：仰卧，2：俯卧，3：左侧卧，4：右侧卧，5：坐姿</Comment>
-      <DataType>tinyint(1)|0s</DataType>
+      <DasType>tinyint(1)|0s</DasType>
       <Position>6</Position>
     </column>
     <column id="308" parent="296" name="self_waist_reg">
       <Comment>用户自我识别腰部位置</Comment>
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <Position>7</Position>
     </column>
     <column id="309" parent="296" name="self_knee_reg">
       <Comment>用户自我识别膝盖位置</Comment>
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <Position>8</Position>
     </column>
     <column id="310" parent="296" name="user_id">
       <Comment>采集用户id</Comment>
-      <DataType>int(11)|0s</DataType>
+      <DasType>int(11)|0s</DasType>
       <Position>9</Position>
     </column>
     <column id="311" parent="296" name="comment">
       <Comment>备注；自动模式是否触发</Comment>
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <Position>10</Position>
     </column>
     <column id="312" parent="296" name="cloud_waist">
       <Comment>云端识别腰部</Comment>
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <Position>11</Position>
     </column>
     <column id="313" parent="296" name="local_waist">
       <Comment>本地识别腰部</Comment>
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <Position>12</Position>
     </column>
     <column id="314" parent="296" name="cloud_position">
       <Comment>云端识别睡姿</Comment>
-      <DataType>tinyint(1)|0s</DataType>
+      <DasType>tinyint(1)|0s</DasType>
       <Position>13</Position>
     </column>
     <column id="315" parent="296" name="local_position">
       <Comment>本地识别睡姿</Comment>
-      <DataType>tinyint(1)|0s</DataType>
+      <DasType>tinyint(1)|0s</DasType>
       <Position>14</Position>
     </column>
     <column id="316" parent="296" name="ai_position">
       <Comment>ai识别睡姿</Comment>
-      <DataType>tinyint(1)|0s</DataType>
+      <DasType>tinyint(1)|0s</DasType>
       <Position>15</Position>
     </column>
     <key id="317" parent="296" name="PRIMARY">
-      <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="318" parent="297" name="id">
-      <DataType>bigint(20)|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>bigint(20)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="319" parent="297" name="bed_id">
       <Comment>对应床垫id</Comment>
-      <DataType>bigint(20)|0s</DataType>
+      <DasType>bigint(20)|0s</DasType>
       <Position>2</Position>
     </column>
     <column id="320" parent="297" name="bed_name">
       <Comment>床垫名称</Comment>
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <Position>3</Position>
     </column>
     <column id="321" parent="297" name="pressure_data">
       <Comment>床垫压力感应片数据</Comment>
-      <DataType>varchar(700)|0s</DataType>
+      <DasType>varchar(700)|0s</DasType>
       <Position>4</Position>
     </column>
     <column id="322" parent="297" name="gas_data">
       <Comment>气道压力数据</Comment>
-      <DataType>varchar(300)|0s</DataType>
+      <DasType>varchar(300)|0s</DasType>
       <Position>5</Position>
     </column>
     <column id="323" parent="297" name="part">
       <Comment>部位 起始_2,1,1...</Comment>
-      <DataType>varchar(50)|0s</DataType>
+      <DasType>varchar(50)|0s</DasType>
       <Position>6</Position>
     </column>
     <column id="324" parent="297" name="create_time">
       <Comment>创建时间</Comment>
-      <DataType>datetime|0s</DataType>
+      <DasType>datetime|0s</DasType>
       <Position>7</Position>
     </column>
     <column id="325" parent="297" name="mean">
       <Comment>压力值平均数</Comment>
-      <DataType>float(10,4 digit)|0s</DataType>
+      <DasType>float(10,4 digit)|0s</DasType>
       <Position>8</Position>
     </column>
     <column id="326" parent="297" name="sum">
       <Comment>压力值总和</Comment>
-      <DataType>int(20)|0s</DataType>
+      <DasType>int(20)|0s</DasType>
       <Position>9</Position>
     </column>
     <column id="327" parent="297" name="maxmin">
       <Comment>每行最大值和最小值差值</Comment>
-      <DataType>int(20)|0s</DataType>
+      <DasType>int(20)|0s</DasType>
       <Position>10</Position>
     </column>
     <index id="328" parent="297" name="bed_id">
@@ -1232,180 +1232,180 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Type>btree</Type>
     </index>
     <key id="329" parent="297" name="PRIMARY">
-      <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="330" parent="298" name="id">
-      <DataType>bigint(20)|0s</DataType>
+      <DasType>bigint(20)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
     <column id="331" parent="298" name="equipment_code">
       <Comment>设备编码</Comment>
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <Position>2</Position>
     </column>
     <column id="332" parent="298" name="characteristic_value">
       <Comment>音频特征值</Comment>
-      <DataType>text|0s</DataType>
+      <DasType>text|0s</DasType>
       <Position>3</Position>
     </column>
     <column id="333" parent="298" name="result">
       <Comment>模型分析结果</Comment>
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <Position>4</Position>
     </column>
     <column id="334" parent="298" name="callback_result">
       <Comment>操作反馈结果</Comment>
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <Position>5</Position>
     </column>
     <key id="335" parent="298" name="PRIMARY">
-      <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="336" parent="299" name="id">
-      <DataType>int(11)|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>int(11)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="337" parent="299" name="name">
       <Comment>姓名</Comment>
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="338" parent="299" name="age">
       <Comment>年龄</Comment>
-      <DataType>int(11)|0s</DataType>
+      <DasType>int(11)|0s</DasType>
       <Position>3</Position>
     </column>
     <column id="339" parent="299" name="height">
       <Comment>身高cm</Comment>
-      <DataType>int(11)|0s</DataType>
+      <DasType>int(11)|0s</DasType>
       <Position>4</Position>
     </column>
     <column id="340" parent="299" name="wight">
       <Comment>体重g</Comment>
-      <DataType>int(255)|0s</DataType>
+      <DasType>int(255)|0s</DasType>
       <Position>5</Position>
     </column>
     <key id="341" parent="299" name="PRIMARY">
-      <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="342" parent="300" name="id">
-      <DataType>bigint(20)|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>bigint(20)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="343" parent="300" name="pressure_data">
       <Comment>床垫压力</Comment>
-      <DataType>varchar(2000)|0s</DataType>
+      <DasType>varchar(2000)|0s</DasType>
       <DefaultExpression>&apos;&apos;</DefaultExpression>
       <Position>2</Position>
     </column>
     <column id="344" parent="300" name="flag">
       <Comment>关键字</Comment>
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <DefaultExpression>&apos;&apos;</DefaultExpression>
       <Position>3</Position>
     </column>
     <column id="345" parent="300" name="position_real">
       <Comment>睡姿识别；0：空闲，1：仰卧，2：俯卧，3：侧卧，4：侧卧，5坐姿 10无法判断</Comment>
-      <DataType>tinyint(1)|0s</DataType>
+      <DasType>tinyint(1)|0s</DasType>
       <Position>4</Position>
     </column>
     <column id="346" parent="300" name="position_recognition">
       <Comment>睡姿识别；0：空闲，1：仰卧，2：俯卧，3：侧卧，4：侧卧</Comment>
-      <DataType>tinyint(1)|0s</DataType>
+      <DasType>tinyint(1)|0s</DasType>
       <Position>5</Position>
     </column>
     <column id="347" parent="300" name="data_diff_feature">
       <Comment>pressure特征值，查看是否相似</Comment>
-      <DataType>varchar(505)|0s</DataType>
+      <DasType>varchar(505)|0s</DasType>
       <Position>6</Position>
     </column>
     <column id="348" parent="300" name="type">
       <Comment>1训练集 2测试集</Comment>
-      <DataType>tinyint(1)|0s</DataType>
+      <DasType>tinyint(1)|0s</DasType>
       <DefaultExpression>1</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
     <column id="349" parent="300" name="update_time">
-      <DataType>datetime|0s</DataType>
+      <DasType>datetime|0s</DasType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <NotNull>1</NotNull>
       <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
       <Position>8</Position>
     </column>
     <key id="350" parent="300" name="PRIMARY">
-      <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="351" parent="301" name="id">
+      <AutoIncrement>1</AutoIncrement>
       <Comment>主键</Comment>
-      <DataType>bigint(20)|0s</DataType>
+      <DasType>bigint(20)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="352" parent="301" name="bed_id">
       <Comment>床id</Comment>
-      <DataType>bigint(20)|0s</DataType>
+      <DasType>bigint(20)|0s</DasType>
       <Position>2</Position>
     </column>
     <column id="353" parent="301" name="start_date">
       <Comment>睡眠开始日期</Comment>
-      <DataType>date|0s</DataType>
+      <DasType>date|0s</DasType>
       <Position>3</Position>
     </column>
     <column id="354" parent="301" name="start_time_standard">
       <Comment>睡眠开始时间</Comment>
-      <DataType>varchar(10)|0s</DataType>
+      <DasType>varchar(10)|0s</DasType>
       <Position>4</Position>
     </column>
     <column id="355" parent="301" name="end_time_standard">
       <Comment>睡眠结束时间</Comment>
-      <DataType>varchar(10)|0s</DataType>
+      <DasType>varchar(10)|0s</DasType>
       <Position>5</Position>
     </column>
     <column id="356" parent="301" name="stand_hour">
       <Comment>标准时长</Comment>
-      <DataType>decimal(5,2 digit)|0s</DataType>
+      <DasType>decimal(5,2 digit)|0s</DasType>
       <Position>6</Position>
     </column>
     <column id="357" parent="301" name="position_id">
       <Comment>睡姿id 1：仰卧，2：俯卧，3：侧卧，4：其他</Comment>
-      <DataType>int(11)|0s</DataType>
+      <DasType>int(11)|0s</DasType>
       <Position>7</Position>
     </column>
     <column id="358" parent="301" name="start_time">
       <Comment>睡姿开始时间</Comment>
-      <DataType>varchar(10)|0s</DataType>
+      <DasType>varchar(10)|0s</DasType>
       <Position>8</Position>
     </column>
     <column id="359" parent="301" name="end_time">
       <Comment>睡姿结束时间</Comment>
-      <DataType>varchar(10)|0s</DataType>
+      <DasType>varchar(10)|0s</DasType>
       <Position>9</Position>
     </column>
     <column id="360" parent="301" name="hour">
       <Comment>睡姿时长</Comment>
-      <DataType>decimal(7,4 digit)|0s</DataType>
+      <DasType>decimal(7,4 digit)|0s</DasType>
       <Position>10</Position>
     </column>
     <key id="361" parent="301" name="PRIMARY">
-      <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
   </database-model>
 </dataSource>
