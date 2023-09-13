@@ -1,31 +1,33 @@
 # -*- coding: utf-8 -*-
 # Author: Shenbq
 # Date: 2023/8/11 15:44
-from datetime import datetime
+import numpy as np
 
-now = datetime.now()
+'''
+- 贝塔系数衡量个股相对于市场的风险程度。
+- 贝塔系数大于1,表示个股的波动大于市场波动,具有较高风险。
+- 贝塔系数等于1,表示个股的波动与市场一致。
+- 贝塔系数小于1,表示个股的波动小于市场波动,风险较低。
+- 贝塔系数为负,表示个股与市场变化方向相反。
+'''
+def calc_beta(stock_returns, market_returns):
+    # 计算收益率的协方差
+    cov = np.cov(stock_returns, market_returns)[0, 1]
 
-# 指定时间
-target_time_start = datetime.now().replace(hour=9, minute=30, second=0, microsecond=0)
-target_time_end = datetime.now().replace(hour=15, minute=30, second=0, microsecond=0)
-is_ok = 1
-# print(target_time)
-if now < target_time_start:
-    print("当日交易还未开始")
-elif now > target_time_end:
-    is_ok = 0
-    print("当日交易结束")
-else:
-    print("当日交易进行中")
+    # 计算市场收益率的方差
+    var = np.var(market_returns)
 
-today = datetime.today()
-week = today.weekday()
-date = today.strftime('%Y-%m-%d')
-date_str = datetime.strptime(date, '%Y-%m-%d')
-timestamp = date_str.timestamp()
+    # 计算贝塔系数
+    beta = cov / var
+    print(cov)
+    print(var)
+    return beta
 
-days = 7
 
-for i in range(days):
-    day = str(int(timestamp) - 86400 * (i + is_ok)) + '000'
-    print(str(i + is_ok) + '天前 : ' + day)
+# 股票收益率5日
+stock_returns = [0.12, 0.05, -0.03, 0.08]
+# 市场收益率5日
+market_returns = [0.03, 0.01, -0.04, 0.06]
+
+beta = calc_beta(stock_returns, market_returns)
+print(beta)
